@@ -5,7 +5,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [books, setBooks] = useState([
+  const [movies, setmovies] = useState([
     {
       id: 1,
       title: "The Matrix Reloaded",
@@ -28,27 +28,28 @@ export const MainView = () => {
       director: "Steven Spielberg"
     }
   ]);
-  
-  const [selectedBook, setSelectedBook] = useState(null);
 
-  if (selectedBook) {
-    return <MovieView book={selectedBook} onBackClick={() => setSelectedBook(null)} />;
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  if (selectedMovie) {
+    return <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />;
   }
-  
-  if (books.length === 0) {
+
+  if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
 
   return (
     <div>
-      {books.map((book) => {
-        return <MovieCard 
-        key={book.id} 
-        book={book}
-        onBookClick={(newSelectedBook) => {
-            setSelectedBook(newSelectedBook);
+      {movies.map((movie) => {
+        return <MovieCard
+          key={movie.id}
+          movie={movie}
+          onMovieClick={(newSelectedMovie) => {
+            setSelectedMovie(newSelectedMovie);
           }} />
-      })}
-    </div>
+      })
+      }
+    </div >
   );
 };
