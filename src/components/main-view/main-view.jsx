@@ -6,7 +6,6 @@ import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-
   useEffect(() => {
     fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/movies")
       .then((response) => response.json())
@@ -16,7 +15,8 @@ export const MainView = () => {
             id: key._id,
             title: key.Title,
             image: key.ImagePath,
-            director: key.Director.Name
+            director: key.Director.Name,
+            genre: key.Genre.Name
           };
         });
 
@@ -27,7 +27,22 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   if (selectedMovie) {
-    return <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />;
+    let similarMovies = movies.filter((movie) => movie.genre === selectedMovie.genre);
+    return (
+      <>
+        <MovieView movie={selectedMovie} onBackClick={() => { setSelectedMovie(null); }} />
+        <hr />
+        <h2>Similiar Movies</h2>
+        {similarMovies.map((movie) => {
+          return <MovieCard
+            key={movie.id}
+            movie={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }} />
+        })}
+      </>
+    );
   }
 
   if (movies.length === 0) {
