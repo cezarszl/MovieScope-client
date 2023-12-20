@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 const SignupView = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -33,21 +35,49 @@ const SignupView = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="">Username:
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            </label>
-            <label htmlFor="">Password:
-                <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} />
-            </label>
-            <label htmlFor="">Email:
-                <input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
-            </label>
-            <label htmlFor="">DoB:
-                <input type="date" value={birth_date} onChange={(e) => { setBirth_Date(e.target.value) }} />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="signUpFormUsername">
+                <Form.Label>Username:</Form.Label>
+                <Form.Control
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    minLength="3"
+                />
+            </Form.Group>
+
+            <Form.Group controlId="signUpFormPassword">
+                <Form.Label>Password:</Form.Label>
+                <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+            </Form.Group>
+            <Form.Group controlId="signUpFormEmail">
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+            </Form.Group>
+            <Form.Group controlId="signUpFormBirthday">
+                <Form.Label>Birthday:</Form.Label>
+                <Form.Control
+                    type="date"
+                    value={birth_date}
+                    onChange={(e) => setBirthday(e.target.value)}
+                    required
+                />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
+        </Form>
     );
 };
 export { SignupView };
