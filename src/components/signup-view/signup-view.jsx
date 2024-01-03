@@ -70,7 +70,7 @@ const SignupView = () => {
                 <Form.Control
                     type="date"
                     value={birth_date}
-                    onChange={(e) => setBirthday(e.target.value)}
+                    onChange={(e) => setBirth_Date(e.target.value)}
                     required
                 />
             </Form.Group>
