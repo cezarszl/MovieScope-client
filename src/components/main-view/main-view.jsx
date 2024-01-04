@@ -5,6 +5,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
+import { ProfileView } from "../profile-view/profile-view.jsx";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
@@ -114,6 +115,25 @@ export const MainView = () => {
                       </Col>
                     ))}
                   </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col>
+                    <ProfileView
+                      user={user}
+                      token={token}
+                      movies={movies}
+                      setUser={setUser}
+                    />
+                  </Col>
                 )}
               </>
             }
