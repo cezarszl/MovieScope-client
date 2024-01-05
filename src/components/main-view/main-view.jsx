@@ -93,7 +93,10 @@ export const MainView = () => {
                   <Col>The list is empty</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView user={user}
+                      token={token}
+                      movies={movies}
+                      setUser={setUser} />
                   </Col>
                 )}
               </>
