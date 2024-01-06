@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { MovieCard } from "../movie-card/movie-card";
+import { Container, Row } from "react-bootstrap";
+import { UserInfo } from "./user-info";
+import { FavouriteMovies } from "./favourite-movies";
+import { UpdateUser } from "./update-user";
 
 export const ProfileView = ({ user, token, movies, setUser }) => {
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState(user.Username);
     const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [birth_date, setBirthday] = useState("");
+    const [email, setEmail] = useState(user.Email);
+    const [birthday, setBirthday] = useState(user.Birthday);
 
-    let result = movies.filter((m) => user.FavouriteMovies.includes(m.id));
+    const favouriteMoviesList = movies.filter((m) =>
+        user.FavouriteMovies.includes(m.id)
+    );
+    user.Birthday = user.Birthday.slice(0, 10);07
     const handleUpdate = (event) => {
         event.preventDefault();
 
@@ -17,7 +21,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
             Username: username,
             Password: password,
             Email: email,
-            Birthday: birth_date
+            Birthday: birthday
         };
 
         fetch(
@@ -32,7 +36,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
             }
         )
             .then(async (response) => {
-                console.log("response:", response);
                 if (response.ok) {
                     alert("Update successful");
                     const data = await response.json();
@@ -70,107 +73,30 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     };
 
     return (
-
         <Container>
             <Row className="justify-content-md-center">
-                <Col md={8}>
-
-                    <h1>User's Profile</h1>
-                    <h4>Here you can edit your profile</h4>
-                    <Form onSubmit={handleUpdate}>
-                        <Form.Group>
-                            <Form.Label>
-                                username:
-                                <Form.Control
-                                    type="text"
-                                    value={username}
-                                    onChange={(e) => {
-                                        setUsername(e.target.value);
-                                    }}
-                                    placeholder={user.Username}
-                                />
-                            </Form.Label>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>
-                                password:
-                                <Form.Control
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-                                    }}
-                                    // required
-                                    placeholder="*******"
-                                />
-                            </Form.Label>
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label>
-                                email:
-                                <Form.Control
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => {
-                                        setEmail(e.target.value);
-                                    }}
-                                    // required
-                                    placeholder={user.Email}
-                                />
-                            </Form.Label>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>
-                                bday:
-                                <Form.Control
-                                    type="date"
-                                    value={birth_date}
-                                    onChange={(e) => {
-                                        setBirthday(e.target.value);
-                                    }}
-                                />
-                            </Form.Label>
-                        </Form.Group>
-                        <Button
-                            variant="primary"
-                            type="submit"
-                            onClick={handleUpdate}
-                            className="text-white mt-4"
-                        >
-                            update profile
-                        </Button>
-                    </Form>
-                    <Link to="/login">
-                        <Button
-                            variant="danger"
-                            type=""
-                            onClick={deleteAccount}
-                            className="text-white mt-3"
-                        >
-                            delete your account
-                        </Button>
-                    </Link>
-                </Col>
+                <UserInfo username={user.Username} email={user.Email} />
+                <UpdateUser
+                    handleUpdate={handleUpdate}
+                    username={user.Username}
+                    password={user.Password}
+                    birthday={user.Birthday}
+                    email={user.Email}
+                    deleteAccount={deleteAccount}
+                    setUsername={setUsername}
+                    setPassword={setPassword}
+                    setEmail={setEmail}
+                    setBirthday={setBirthday}
+                />
             </Row>
-            <Row className="justify-content-md-center align-items-center">
-                <h4>Favourite movies</h4>
-                {result.map((movie) => {
-                    return (
-                        <Col
-                            key={movie.id}
-                            className="mb-4 justify-content-center align-items-center d-flex"
-                        >
-                            <MovieCard
-                                movie={movie}
-                                token={token}
-                                setUser={setUser}
-                                user={user}
-                            />
-                        </Col>
-                    );
-                })}
-            </Row>
+            <Row>
+                <FavouriteMovies
+                    favouriteMoviesList={favouriteMoviesList}
+                    token={token}
+                    setUser={setUser}
+                    user={user}
+                />
+            </Row >
         </Container>
     );
 };
