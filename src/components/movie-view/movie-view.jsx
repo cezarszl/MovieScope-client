@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { Col, Row, Button } from "react-bootstrap";
-import { MovieCard } from "../movie-card/movie-card";
+import { MovieInfo } from "./movie-info";
+import { SimilarMovies } from "./similar-movies";
+import { Container } from "react-bootstrap";
 
 export const MovieView = ({ movies, token, setUser, user }) => {
 
@@ -15,45 +15,10 @@ export const MovieView = ({ movies, token, setUser, user }) => {
   });
   console.log(movie.genre);
   return (
-    <>
-      <Row>
-        <Col>
-          <img className="w-50" src={movie.image} />
-        </Col>
-      </Row>
-      <Row>
-        <span>Title: </span>
-        <span>{movie.title}</span>
-      </Row>
-      <Row>
-        <span>Director: </span>
-        <span>{movie.director}</span>
-      </Row>
-      <Row>
-        <Link to={`/`}>
-          <Button className="back-button">Back</Button>
-        </Link>
-      </Row>
-      <h2>Similar Movies</h2>
-      <Row className="justify-content-center">
-        {
-          similarMovies.length !== 0 ?
-            similarMovies.map((movie) => (
-              <Col key={movie._id}>
-                <MovieCard
-                  movie={movie}
-                  token={token}
-                  setUser={setUser}
-                  user={user}
-                />
-              </Col>
-            ))
-            : <Col>
-              <p>There are no similar Movies</p>
-            </Col>
-        }
-      </Row>
-    </>
+    <Container>
+      <MovieInfo movie={movie} />
+      <SimilarMovies similarMovies={similarMovies} token={token} setUser={setUser} user={user} />
+    </Container>
 
 
   );
