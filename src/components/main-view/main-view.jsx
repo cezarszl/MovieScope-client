@@ -11,15 +11,15 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
+import { setUser, clearUser } from "../../redux/reducers/user";
 
 
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const storedToken = localStorage.getItem("token");
+
+
   const movies = useSelector((state) => state.movies.list);
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
+  const { user, token } = useSelector((state) => state.user);
   const filter = useSelector((state) =>
     state.movies.filter).trim().toLowerCase();
   const filteredMovies = movies.filter((movie) =>
@@ -28,11 +28,17 @@ export const MainView = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedToken = localStorage.getItem('token');
+    if (storedUser && storedToken) {
+      dispatch(setUser({ user: storedUser, token: storedToken }));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
     if (!token) {
       return;
     }
-
-
     fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/movies", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => response.json())
       .then((data) => {
@@ -53,12 +59,7 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-      <NavigationBar
-        user={user}
-        onLoggedOut={() => {
-          setUser(null);
-        }}
-      />
+      <NavigationBar />
       <Row className="justify-content-md-center">
         <Routes>
           <Route
@@ -84,10 +85,11 @@ export const MainView = () => {
                 ) : (
                   <Col md={5}>
                     <LoginView
-                      onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }}
+                    // onLoggedIn={(user, token) => {
+                    //   setUser(user);
+                    //   setToken(token);
+                    // }}
+
                     />
                   </Col>
                 )}

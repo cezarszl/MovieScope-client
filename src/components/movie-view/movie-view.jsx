@@ -10,7 +10,6 @@ export const MovieView = ({ token, setUser }) => {
   const movies = useSelector((state) => state.movies.list);
   const user = useSelector((state) => state.user);
   const movie = movies.find((m) => m.id === movieId);
-
   const selectedMovie = movies.find((movie) => movie.id === movieId);
   const similarMovies = movies.filter((movie) => {
     return movie.id !== movieId && movie.genre === selectedMovie.genre;
