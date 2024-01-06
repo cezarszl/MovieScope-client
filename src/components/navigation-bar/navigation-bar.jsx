@@ -1,5 +1,6 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { MoviesSearch } from "../movies-search/movies-search";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
     return (
@@ -30,6 +31,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                                 <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
                             </>
                         )}
+                        <MoviesSearch />
                     </Nav>
                 </Navbar.Collapse>
             </Container>

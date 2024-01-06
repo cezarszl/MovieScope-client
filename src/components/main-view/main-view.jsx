@@ -9,18 +9,29 @@ import { ProfileView } from "../profile-view/profile-view.jsx";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { useSelector, useDispatch } from "react-redux";
+import { setMovies } from "../../redux/reducers/movies";
+
 
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [movies, setMovies] = useState([]);
+  const movies = useSelector((state) => state.movies.list);
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  const filter = useSelector((state) =>
+    state.movies.filter).trim().toLowerCase();
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(filter)
+  );
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!token) {
       return;
     }
+
 
     fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/movies", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => response.json())
@@ -34,7 +45,7 @@ export const MainView = () => {
             genre: key.Genre.Name
           };
         });
-        setMovies(movieFromApi);
+        dispatch(setMovies(movieFromApi));
       })
 
   }, [token]);
@@ -95,7 +106,7 @@ export const MainView = () => {
                   <Col md={8}>
                     <MovieView user={user}
                       token={token}
-                      movies={movies}
+                      // movies={movies}
                       setUser={setUser} />
                   </Col>
                 )}
@@ -112,7 +123,7 @@ export const MainView = () => {
                   <Col>The list is empty</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    {filteredMovies.map((movie) => (
                       <Col md={6} lg={4} xl={3} className="mb-5 col-8" key={movie.id}>
                         <MovieCard
                           movie={movie}
