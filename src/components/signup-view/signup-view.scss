@@ -5,7 +5,9 @@
   width: 300px !important;
   padding: 40px;
   transform: translate(-50%, -50%);
-
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
   h2 {
     margin: 0 0 30px;
     padding: 0;
