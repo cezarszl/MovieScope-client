@@ -1,18 +1,18 @@
 import React from "react";
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { ProfileView } from "../profile-view/profile-view.jsx";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { ScrollToAnchor } from "./scroll-to-anchor";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
-import { setUser, clearUser } from "../../redux/reducers/user";
-
+import { setUser } from "../../redux/reducers/user";
+import "./main-view.scss"
 
 
 export const MainView = () => {
@@ -47,8 +47,11 @@ export const MainView = () => {
             id: key._id,
             title: key.Title,
             image: key.ImagePath,
+            description: key.Description,
             director: key.Director.Name,
-            genre: key.Genre.Name
+            genre: key.Genre.Name,
+            rating: key.Rating,
+            release_date: key.ReleaseDate
           };
         });
         dispatch(setMovies(movieFromApi));
@@ -59,8 +62,9 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToAnchor />
       <NavigationBar />
-      <Row className="justify-content-md-center">
+      <Row className="main-container d-flex justify-content-center">
         <Routes>
           <Route
             path="/signup"
@@ -83,14 +87,8 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col md={5}>
-                    <LoginView
-                    // onLoggedIn={(user, token) => {
-                    //   setUser(user);
-                    //   setToken(token);
-                    // }}
-
-                    />
+                  <Col>
+                    <LoginView />
                   </Col>
                 )}
               </>
@@ -108,7 +106,6 @@ export const MainView = () => {
                   <Col md={8}>
                     <MovieView user={user}
                       token={token}
-                      // movies={movies}
                       setUser={setUser} />
                   </Col>
                 )}
@@ -122,11 +119,11 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
-                  <Col>The list is empty</Col>
+                  <Col></Col>
                 ) : (
                   <>
                     {filteredMovies.map((movie) => (
-                      <Col md={6} lg={4} xl={3} className="mb-5 col-8" key={movie.id}>
+                      <Col xs={6} md={4} lg={3} key={movie.id}>
                         <MovieCard
                           movie={movie}
                           token={token}

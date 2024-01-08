@@ -1,0 +1,21 @@
+.sm-container {
+  margin-top: 100px;
+  .mc-container {
+    margin-bottom: 50px;
+  }
+  h2 {
+    text-align: center;
+    color: #eee;
+  }
+  .sm-col {
+    margin-top: 50px;
+  }
+  .movie-img {
+    all: unset;
+  }
+  p {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 50px;
+  }
+}

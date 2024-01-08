@@ -1,0 +1,25 @@
+.fm-container {
+  padding-top: 100px;
+  .mc-container {
+    margin-bottom: 50px;
+  }
+  h2 {
+    text-align: center;
+    color: #eee;
+  }
+  a {
+    width: auto;
+  }
+  .fm-col {
+    padding-top: 50px;
+  }
+  .movie-img {
+    all: unset;
+    justify-content: center;
+  }
+  .favourite-toggle {
+    display: block !important;
+    text-align: center;
+    padding-right: 30px;
+  }
+}

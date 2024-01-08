@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Button, Form, Container } from "react-bootstrap";
 import { setUser } from "../../redux/reducers/user";
 import { useDispatch } from "react-redux";
+import "./login-view.scss"
+
 const LoginView = ({ }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -38,31 +39,40 @@ const LoginView = ({ }) => {
             });
     }
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formUsername">
-                <Form.Label>Username:</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                    minLength="3"
-                />
-            </Form.Group>
+        <Container className="loginBox">
+            <h2>Login</h2>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formUsername" className="formBox">
+                    <Form.Control
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                        minLength="3"
+                        autoComplete="username"
+                    />
+                    <Form.Label>Username</Form.Label>
+                </Form.Group>
 
-            <Form.Group controlId="formPassword">
-                <Form.Label>Password:</Form.Label>
-                <Form.Control
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </Form>
+                <Form.Group controlId="formPassword" className="formBox">
+                    <Form.Control
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        autoComplete="password"
+                    />
+                    <Form.Label>Password</Form.Label>
+                </Form.Group>
+                <Button id="loginBtn" type="submit">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Login
+                </Button>
+            </Form>
+        </Container>
     );
 };
 

@@ -3,8 +3,10 @@ import { Container, Row } from "react-bootstrap";
 import { UserInfo } from "./user-info";
 import { FavouriteMovies } from "./favourite-movies";
 import { UpdateUser } from "./update-user";
+// import "./profile-view.scss"
 
 export const ProfileView = ({ user, token, movies, setUser }) => {
+
     const [username, setUsername] = useState(user.Username);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState(user.Email);
@@ -13,7 +15,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     const favouriteMoviesList = movies.filter((m) =>
         user.FavouriteMovies.includes(m.id)
     );
-    user.Birthday = user.Birthday.slice(0, 10);07
+
     const handleUpdate = (event) => {
         event.preventDefault();
 
@@ -74,7 +76,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
 
     return (
         <Container>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-start">
                 <UserInfo username={user.Username} email={user.Email} />
                 <UpdateUser
                     handleUpdate={handleUpdate}

@@ -1,76 +1,83 @@
 import React from 'react'
-import { Button, Col, Form, Card } from "react-bootstrap";
+import { Button, Col, Form, Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./update-user.scss"
 
 export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, setUsername, setPassword, setEmail, setBirthday }) => {
     return (
-        <Col xs={12} sm={4}>
-            <Card>
-                <Card.Body>
+        <Col>
+            <Card className="updateCard">
+                <Card.Body className="updateBox">
                     <Card.Title>Update your information</Card.Title>
                     <Form onSubmit={handleUpdate}>
-                        <Form.Group>
-                            <Form.Label>Username:</Form.Label>
+                        <Form.Group className="formBox">
+
                             <Form.Control
                                 type="text"
                                 autoComplete='username'
                                 defaultValue={username}
                                 onChange={e => setUsername(e.target.value.trim())}
-                                placeholder="Enter a username"
+
                             />
+                            <Form.Label>Username</Form.Label>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Password:</Form.Label>
+                        <Form.Group className="formBox">
+
                             <Form.Control
                                 type="password"
                                 autoComplete='current-password'
                                 onChange={(e) => {
                                     setPassword(e.target.value);
                                 }}
-                                placeholder="Minimum 10 characters"
                                 required
                             />
+                            <Form.Label>New password</Form.Label>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Email:</Form.Label>
+                        <Form.Group className="formBox">
+
                             <Form.Control
                                 type="email"
                                 defaultValue={email}
                                 onChange={(e) => {
                                     setEmail(e.target.value);
                                 }}
-                                placeholder="Enter your email address"
+
                             />
+                            <Form.Label>Email</Form.Label>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Birthday:</Form.Label>
+                        <Form.Group className="formBox">
+
                             <Form.Control
                                 type="date"
-                                defaultValue={birthday}
+                                defaultValue={birthday.slice(0, 10)}
                                 onChange={(e) => {
                                     setBirthday(e.target.value);
                                 }}
                             />
+                            <Form.Label>Birthday</Form.Label>
                         </Form.Group>
                         <Button
-                            variant="primary"
                             type="submit"
                             onClick={handleUpdate}
-                            className="text-white mt-4"
+                            id="updateBtn"
                         >
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
                             update profile
                         </Button>
+                        <Form.Group>
+                            <Link className="removeLink" to="/login">
+                                <Button
+                                    onClick={deleteAccount}
+                                    className="removeBtn"
+                                >
+                                    Remove account permanently
+                                </Button>
+                            </Link>
+                        </Form.Group>
                     </Form>
-                    <Link to="/login">
-                        <Button
-                            variant="danger"
-                            type=""
-                            onClick={deleteAccount}
-                            className="text-white mt-3"
-                        >
-                            delete your account
-                        </Button>
-                    </Link>
                 </Card.Body>
             </Card>
         </Col>
