@@ -1,18 +1,23 @@
-export const MovieView = ({ movie, onBackClick }) => {
+import { useParams } from "react-router";
+import { MovieInfo } from "./movie-info";
+import { SimilarMovies } from "./similar-movies";
+import { useSelector } from "react-redux";
+export const MovieView = ({ token, setUser }) => {
+
+  const { movieId } = useParams();
+  const movies = useSelector((state) => state.movies.list);
+  const { user } = useSelector((state) => state.user);
+  const movie = movies.find((m) => m.id === movieId);
+  const selectedMovie = movies.find((movie) => movie.id === movieId);
+  const similarMovies = movies.filter((movie) => {
+    return movie.id !== movieId && movie.genre === selectedMovie.genre;
+  });
+
   return (
-    <div>
-      <div>
-        <img src={movie.image} />
-      </div>
-      <div>
-        <span>Title: </span>
-        <span>{movie.title}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{movie.director}</span>
-      </div>
-      <button onClick={onBackClick}>Back</button>
-    </div>
+    <>
+      <MovieInfo movie={movie} />
+      <SimilarMovies similarMovies={similarMovies} token={token} setUser={setUser} user={user} />
+    </>
+
   );
 };

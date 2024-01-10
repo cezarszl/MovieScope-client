@@ -1,5 +1,8 @@
-$color: steelblue;
+@import "~bootstrap/scss/bootstrap.scss";
 
-.my-flix {
-  color: $color;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #000;
 }

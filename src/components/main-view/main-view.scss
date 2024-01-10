@@ -1,0 +1,11 @@
+.main-container {
+  padding-top: 100px;
+}
+
+.main-container:hover .movie-img {
+  opacity: 0.4;
+}
+.main-container .movie-img:hover {
+  transform: perspective(800px) rotateY(0deg);
+  opacity: 1;
+}

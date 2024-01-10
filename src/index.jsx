@@ -1,12 +1,20 @@
 import { createRoot } from 'react-dom/client';
 import { MainView } from "./components/main-view/main-view";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import "./index.scss";
 
+
 // Main component (will eventually use all the others)
 const App = () => {
- return <MainView />;
+    return (
+        <Provider store={store}>
+            <MainView />
+        </Provider>
+    );
 };
 
 // Finds the root of your app

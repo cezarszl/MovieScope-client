@@ -1,73 +1,163 @@
 import React from "react";
-
-import { useState, useEffect } from "react";
+import { Col, Row } from "react-bootstrap";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
+import { ProfileView } from "../profile-view/profile-view.jsx";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { ScrollToAnchor } from "./scroll-to-anchor";
+import { useSelector, useDispatch } from "react-redux";
+import { setMovies } from "../../redux/reducers/movies";
+import { setUser } from "../../redux/reducers/user";
+import "./main-view.scss"
+
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const storedToken = localStorage.getItem("token");
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
+
+
+  const movies = useSelector((state) => state.movies.list);
+  const { user, token } = useSelector((state) => state.user);
+  const filter = useSelector((state) =>
+    state.movies.filter).trim().toLowerCase();
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(filter)
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedToken = localStorage.getItem('token');
+    if (storedUser && storedToken) {
+      dispatch(setUser({ user: storedUser, token: storedToken }));
+    }
+  }, [dispatch]);
+
   useEffect(() => {
     if (!token) {
       return;
     }
-
     fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/movies", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Movies from API :", data);
         const movieFromApi = data.map((key) => {
           return {
             id: key._id,
             title: key.Title,
             image: key.ImagePath,
+            description: key.Description,
             director: key.Director.Name,
-            genre: key.Genre.Name
+            genre: key.Genre.Name,
+            rating: key.Rating,
+            release_date: key.ReleaseDate
           };
         });
-        setMovies(movieFromApi);
+        dispatch(setMovies(movieFromApi));
       })
 
   }, [token]);
 
-  if (!user) {
-    return (
-      <>
-        <LoginView onLoggedIn={(user, token) => {
-          setUser(user);
-          setToken(token);
-        }} />
-        or
-        <SignupView />
-      </>
-    );
-  }
 
-  if (selectedMovie) {
-    return <MovieView movie={selectedMovie} onBackClick={() => { setSelectedMovie(null) }} />
-
-  }
-
-  if (movies.length === 0) {
-    return <div>The list is empty</div>
-  }
   return (
-    <>
-      <div>
-
-        {movies.map((movie) => (
-          <MovieCard movie={movie} onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }} />
-        ))}
-      </div>
-      <button onClick={() => { setUser(null); setToken(null); localStorage.clear() }} >Logout</button>
-    </>
-  )
+    <BrowserRouter>
+      <ScrollToAnchor />
+      <NavigationBar />
+      <Row className="main-container d-flex justify-content-center">
+        <Routes>
+          <Route
+            path="/signup"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <SignupView />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col>
+                    <LoginView />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/movies/:movieId"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty</Col>
+                ) : (
+                  <Col md={8}>
+                    <MovieView user={user}
+                      token={token}
+                      setUser={setUser} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col></Col>
+                ) : (
+                  <>
+                    {filteredMovies.map((movie) => (
+                      <Col xs={6} md={4} lg={3} key={movie.id}>
+                        <MovieCard
+                          movie={movie}
+                          token={token}
+                          setUser={setUser}
+                          user={user}
+                        />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col>
+                    <ProfileView
+                      user={user}
+                      token={token}
+                      movies={movies}
+                      setUser={setUser}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+        </Routes>
+      </Row>
+    </BrowserRouter>
+  );
 };

@@ -1,0 +1,19 @@
+.mc-container {
+  margin-bottom: 200px;
+  .favourite-toggle {
+    display: none !important;
+  }
+
+  .movie-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    -webkit-box-reflect: below 2px
+      linear-gradient(transparent, transparent, #0004);
+
+    transform-origin: center;
+    transform: perspective(800px) rotateY(25deg);
+    transition: 0.5s;
+  }
+}
