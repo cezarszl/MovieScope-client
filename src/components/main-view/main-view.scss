@@ -1,5 +1,5 @@
 .main-container {
-  padding-top: 100px;
+  padding-top: 150px;
 }
 
 .main-container:hover .movie-img {
@@ -8,4 +8,12 @@
 .main-container .movie-img:hover {
   transform: perspective(800px) rotateY(0deg);
   opacity: 1;
+}
+
+.logo {
+  position: absolute;
+  width: 200px;
+  height: 125px;
+  margin-top: 5px;
+  z-index: 1001;
 }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import { setUser } from "../../redux/reducers/user";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import "./login-view.scss"
 
 const LoginView = ({ }) => {
@@ -31,12 +32,13 @@ const LoginView = ({ }) => {
                     localStorage.setItem("token", data.token);
                     dispatch(setUser({ user: data.user, token: data.token }));
                 } else {
-                    alert("No such user");
+                    alert("Login failed! Please check your login details and try again.");
                 }
             })
             .catch((e) => {
                 alert("Something went wrong");
             });
+
     }
     return (
         <Container className="loginBox">
@@ -48,7 +50,6 @@ const LoginView = ({ }) => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        minLength="3"
                         autoComplete="username"
                     />
                     <Form.Label>Username</Form.Label>
