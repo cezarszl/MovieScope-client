@@ -1,0 +1,85 @@
+.navbar-light {
+  background: #222b31 !important;
+  //   border-bottom: 4px solid #fcfafa !important;
+}
+
+.navbar-brand {
+  font: 12px Lato !important;
+  text-transform: uppercase;
+  color: #fff !important;
+  letter-spacing: 2px;
+}
+
+.navbar-collapse {
+  margin-bottom: -8px;
+  margin-top: -10px;
+
+  a {
+    font: 500 11px Lato;
+    letter-spacing: 2px;
+    padding: 16px !important;
+    color: #a3bfc6 !important;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1000;
+    margin-top: 2px;
+  }
+  a:hover {
+    color: #fff !important;
+  }
+  li {
+    position: relative;
+  }
+}
+
+.navbar-collapse .navbar-toggler {
+  border: none;
+}
+
+.navbar-collapse {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.navbar .navbar-toggler :hover {
+  background: transparent !important;
+}
+
+.navbar .navbar-toggler :focus {
+  background: transparent !important;
+}
+
+.navbar .navbar-toggler :active {
+  background: transparent !important;
+}
+
+.hover {
+  display: block;
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: #000 !important;
+  z-index: -1;
+  opacity: 1;
+}
+.navbar input {
+  font: 12px Lato !important;
+  text-transform: uppercase;
+  color: #000 !important;
+}
+@media (max-width: 767px) {
+  .nav {
+    padding-bottom: 20px;
+    a {
+      padding: 12px !important;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    padding-bottom: 20px;
+  }
+}

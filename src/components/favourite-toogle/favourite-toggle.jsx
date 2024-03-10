@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { setUser } from "../../redux/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
-import thumbUp from "./thumbup.svg"
-import thumbDown from "./thumbdown.svg"
+import thumbUp from "../../assets/thumbup.svg"
+import thumbDown from "../../assets/thumbdown.svg"
 export const FavouriteToggle = ({ movie }) => {
 
     const { user, token } = useSelector((state) => state.user);

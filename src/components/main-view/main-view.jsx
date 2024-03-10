@@ -12,6 +12,7 @@ import { ScrollToAnchor } from "./scroll-to-anchor";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
 import { setUser } from "../../redux/reducers/user";
+import Clapper from "../../assets/moviescope.png"
 import "./main-view.scss"
 
 
@@ -63,6 +64,7 @@ export const MainView = () => {
   return (
     <BrowserRouter>
       <ScrollToAnchor />
+      <img className="logo" src={Clapper} alt="Clapper" />
       <NavigationBar />
       <Row className="main-container d-flex justify-content-center">
         <Routes>
