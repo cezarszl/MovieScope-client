@@ -1,15 +1,20 @@
 .mi-container {
   all: unset;
   opacity: 1;
-  .mi-img {
-    width: 70%;
-  }
   .mi-imgcard {
     background-color: #000;
+    display: grid;
+    .mi-img {
+      width: 8cm;
+      justify-self: center;
+    }
   }
   .mi-infocard {
     background-color: #000;
     color: #eee;
+  }
+  .card-body {
+    margin-top: -20px;
   }
   .card-title {
     padding-bottom: 20px;
@@ -130,3 +135,9 @@
       0 0 100px #03e9f4;
   }
 }
+@media (max-width: 576px) {
+  .card-body {
+    margin-top: 50px !important;
+  }
+}
+

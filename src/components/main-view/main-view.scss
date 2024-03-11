@@ -9,11 +9,20 @@
   transform: perspective(800px) rotateY(0deg);
   opacity: 1;
 }
+.up-container {
+  margin-top: -50px;
+}
 
-.logo {
-  position: absolute;
-  width: 200px;
-  height: 125px;
-  margin-top: 5px;
-  z-index: 1001;
+@media (max-width: 992px) {
+  .main-container {
+    padding-top: 100px;
+  }
+  .up-container {
+    margin-top: 0px;
+  }
+}
+@media (max-width: 576px) {
+  .main-container {
+    padding-top: 30px;
+  }
 }

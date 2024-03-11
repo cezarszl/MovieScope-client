@@ -75,9 +75,9 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     };
 
     return (
-        <Container>
-            <Row className="justify-content-start">
-                <UserInfo username={user.Username} email={user.Email} />
+        <Container className="up-container">
+            <Row>
+                {/* <UserInfo username={user.Username} email={user.Email} /> */}
                 <UpdateUser
                     handleUpdate={handleUpdate}
                     username={user.Username}

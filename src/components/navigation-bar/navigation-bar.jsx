@@ -5,8 +5,8 @@ import { MoviesSearch } from "../movies-search/movies-search";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { clearUser } from "../../redux/reducers/user";
-import Clapper from "../../assets/clapper.svg"
 import "./navigation-bar.scss";
+import Clapper from "../../assets/moviescope.png"
 export const NavigationBar = ({ }) => {
     const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
@@ -35,30 +35,29 @@ export const NavigationBar = ({ }) => {
     return (
 
         <Navbar expand="lg">
-            <Container id="nav">
-                <Navbar.Brand as={Link} to="/">
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse className="justify-content-around">
-                    <Nav>
-                        {!user && (
-                            <>
-                                <Nav.Link as={Link} to="/login">Login<span className="hover"></span></Nav.Link>
-                                <Nav.Link as={Link} to="/signup">Signup<span className="hover"></span></Nav.Link>
-                            </>
-                        )}
-                        {user && (
-                            <>
-                                <Nav.Link as={Link} to="/">Home<span className="hover"></span></Nav.Link>
-                                <Nav.Link as={Link} to="/profile">Profile<span className="hover"></span></Nav.Link>
-                                <Nav.Link onClick={() => dispatch(clearUser())}>Logout<span className="hover"></span></Nav.Link>
-                            </>
-                        )}
-                    </Nav>
+            <Navbar.Brand as={Link} to="/">
+                <img className="logo d-none d-lg-block d-xl-block" src={Clapper} alt="Clapper" />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse className="justify-content-around">
+                <Nav>
+                    {!user && (
+                        <>
+                            <Nav.Link as={Link} to="/login">Login<span className="hover"></span></Nav.Link>
+                            <Nav.Link as={Link} to="/signup">Signup<span className="hover"></span></Nav.Link>
+                        </>
+                    )}
+                    {user && (
+                        <>
+                            <Nav.Link as={Link} to="/">Home<span className="hover"></span></Nav.Link>
+                            <Nav.Link as={Link} to="/profile">Profile<span className="hover"></span></Nav.Link>
+                            <Nav.Link onClick={() => dispatch(clearUser())}>Logout<span className="hover"></span></Nav.Link>
+                        </>
+                    )}
+                </Nav>
 
-                    <Nav>{isMainView && <MoviesSearch />}</Nav>
-                </Navbar.Collapse>
-            </Container>
+                <Nav>{isMainView && <MoviesSearch />}</Nav>
+            </Navbar.Collapse>
         </Navbar >
     );
 };

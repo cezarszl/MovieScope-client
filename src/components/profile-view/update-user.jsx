@@ -5,7 +5,7 @@ import "./update-user.scss"
 
 export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, setUsername, setPassword, setEmail, setBirthday }) => {
     return (
-        <Col>
+        <Col className="d-flex justify-content-center">
             <Card className="updateCard">
                 <Card.Body className="updateBox">
                     <Card.Title>Update your information</Card.Title>

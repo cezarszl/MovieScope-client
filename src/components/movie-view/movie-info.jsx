@@ -10,7 +10,7 @@ export const MovieInfo = ({ movie }) => {
     return (
         <Container className="mi-container">
             <Row className='justify-content-center'>
-                <Col>
+                <Col sm={6}>
                     <Card className="mi-imgcard">
                         <Card.Img className="mi-img" src={movie.image} />
                     </Card>

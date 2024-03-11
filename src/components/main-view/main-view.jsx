@@ -12,7 +12,6 @@ import { ScrollToAnchor } from "./scroll-to-anchor";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
 import { setUser } from "../../redux/reducers/user";
-import Clapper from "../../assets/moviescope.png"
 import "./main-view.scss"
 
 
@@ -64,7 +63,7 @@ export const MainView = () => {
   return (
     <BrowserRouter>
       <ScrollToAnchor />
-      <img className="logo" src={Clapper} alt="Clapper" />
+
       <NavigationBar />
       <Row className="main-container d-flex justify-content-center">
         <Routes>
@@ -105,7 +104,7 @@ export const MainView = () => {
                 ) : movies.length === 0 ? (
                   <Col>The list is empty</Col>
                 ) : (
-                  <Col md={8}>
+                  <Col className="movie-view justify-content-center" md={8}>
                     <MovieView user={user}
                       token={token}
                       setUser={setUser} />
@@ -125,7 +124,7 @@ export const MainView = () => {
                 ) : (
                   <>
                     {filteredMovies.map((movie) => (
-                      <Col xs={6} md={4} lg={3} key={movie.id}>
+                      <Col sm={6} lg={3} key={movie.id}>
                         <MovieCard
                           movie={movie}
                           token={token}

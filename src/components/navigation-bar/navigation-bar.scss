@@ -10,6 +10,12 @@
   letter-spacing: 2px;
 }
 
+.navbar-toggler {
+  background-color: #eee !important;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
 .navbar-collapse {
   margin-bottom: -8px;
   margin-top: -10px;
@@ -33,7 +39,7 @@
 }
 
 .navbar-collapse .navbar-toggler {
-  border: none;
+  border: none !important;
 }
 
 .navbar-collapse {
@@ -41,17 +47,17 @@
   border: none !important;
 }
 
-.navbar .navbar-toggler :hover {
-  background: transparent !important;
-}
+// .navbar .navbar-toggler :hover {
+//   background: transparent !important;
+// }
 
-.navbar .navbar-toggler :focus {
-  background: transparent !important;
-}
+// .navbar .navbar-toggler :focus {
+//   background: transparent !important;
+// }
 
-.navbar .navbar-toggler :active {
-  background: transparent !important;
-}
+// .navbar .navbar-toggler :active {
+//   background: transparent !important;
+// }
 
 .hover {
   display: block;
@@ -69,12 +75,16 @@
   text-transform: uppercase;
   color: #000 !important;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .nav {
     padding-bottom: 20px;
     a {
       padding: 12px !important;
     }
+  }
+  .navbar input {
+    width: 150px !important;
+    margin-left: 5px;
   }
 }
 
@@ -82,4 +92,11 @@
   .nav {
     padding-bottom: 20px;
   }
+}
+
+.logo {
+  position: absolute;
+  width: 200px;
+  height: 125px;
+  margin-left: 0px;
 }
