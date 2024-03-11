@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Container, Row } from "react-bootstrap";
-import { UserInfo } from "./user-info";
 import { FavouriteMovies } from "./favourite-movies";
 import { UpdateUser } from "./update-user";
-// import "./profile-view.scss"
+
 
 export const ProfileView = ({ user, token, movies, setUser }) => {
 
@@ -15,6 +14,8 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     const favouriteMoviesList = movies.filter((m) =>
         user.FavouriteMovies.includes(m.id)
     );
+
+    let navigate = useNavigate();
 
     const handleUpdate = (event) => {
         event.preventDefault();

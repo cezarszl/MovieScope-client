@@ -68,9 +68,9 @@ export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAcco
                             update profile
                         </Button>
                         <Form.Group>
-                            <Link className="removeLink" to="/login">
+                            <Link className="removeLink">
                                 <Button
-                                    onClick={deleteAccount}
+                                    onClick={() => { if (window.confirm('Would you like to delete your account permanently?')) { deleteAccount() }; }}
                                     className="removeBtn"
                                 >
                                     Remove account permanently
