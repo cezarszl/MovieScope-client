@@ -10,6 +10,10 @@ const SignupView = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        if (!username || !password || !email || !birth_date) {
+            alert("All fields are required.");
+            return;
+        }
         const data = {
 
             Username: username,
@@ -44,8 +48,7 @@ const SignupView = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        minLength="3"
-                    // autoComplete="off"
+                        minLength={3}
                     />
                     <Form.Label>Username</Form.Label>
                 </Form.Group>
@@ -58,6 +61,7 @@ const SignupView = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         autoComplete="password"
+                        minLength={6}
                     />
                     <Form.Label>Password</Form.Label>
                 </Form.Group>
@@ -66,7 +70,6 @@ const SignupView = () => {
                         type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        // autoComplete="off"
                         required
                     />
                     <Form.Label>Email</Form.Label>
