@@ -22,7 +22,7 @@
       padding: 10px 0;
       font-size: 16px;
       color: #fff;
-      margin-bottom: 30px;
+      margin-bottom: 50px;
       border: none;
       border-bottom: 1px solid #fff;
       outline: none;
@@ -33,27 +33,29 @@
       -webkit-background-clip: text !important;
       background-clip: text !important;
     }
-  }
-  .form-control:focus {
-    box-shadow: unset;
-  }
 
-  label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    pointer-events: none;
-    transition: 0.5s;
-  }
-  input:focus ~ label,
-  input:valid ~ label {
-    top: -20px;
-    left: 0;
-    color: #fff;
-    font-size: 12px;
+    .form-control:focus {
+      box-shadow: unset;
+    }
+
+    label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px 0;
+      font-size: 16px;
+      color: #fff;
+      pointer-events: none;
+      transition: 0.5s;
+    }
+    input:not(:placeholder-shown) ~ .form-label,
+    input:focus ~ .form-label {
+      top: -25px;
+      left: 0;
+      color: #fff;
+      font-size: 12px;
+      display: unset;
+    }
   }
 
   #loginBtn {
@@ -153,5 +155,10 @@
     border-radius: 5px;
     box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
       0 0 100px #03e9f4;
+  }
+  .text-danger {
+    font-size: 10px;
+    position: absolute;
+    margin-top: -40px;
   }
 }

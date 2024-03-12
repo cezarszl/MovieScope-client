@@ -10,15 +10,16 @@ const SignupView = () => {
 
     //Zod form schema
     const schema = z.object({
-        username: z.string().min(3),
-        password: z.string(),
+        username: z.string().trim().min(1, { message: "This field is required" }),
+        password: z.string().trim().min(6, { message: "Password must contain at least 6 character(s)" }),
         email: z.string().email(),
         birthday: z.coerce.date()
     })
+
+    //React-hook-form
     const { register, handleSubmit, setError, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
 
-
-
+    //ReactToastify
     const registrationToast = () => toast.success('Registered successfully!', {
         position: "bottom-center",
         autoClose: 2000,
