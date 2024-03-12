@@ -15,8 +15,6 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
         user.FavouriteMovies.includes(m.id)
     );
 
-    let navigate = useNavigate();
-
     const handleUpdate = (event) => {
         event.preventDefault();
 

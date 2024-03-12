@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Alert } from "react-bootstrap";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -63,7 +63,6 @@ export const MainView = () => {
   return (
     <BrowserRouter>
       <ScrollToAnchor />
-
       <NavigationBar />
       <Row className="main-container d-flex justify-content-center">
         <Routes>
