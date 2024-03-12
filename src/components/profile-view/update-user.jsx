@@ -1,71 +1,104 @@
 import React from 'react'
-import { Button, Col, Form, Card, Container } from "react-bootstrap";
+import { Button, Col, Form, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./update-user.scss"
+import { useForm } from "react-hook-form";
+import z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+
 
 export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, setUsername, setPassword, setEmail, setBirthday }) => {
+
+    //Zod form schema
+    const schema = z.object({
+        username: z.string().trim().min(1, { message: "This field is required" }),
+        password: z.string().trim().min(6, { message: "Password must contain at least 6 character(s)" }),
+        email: z.string().email(),
+        birthday: z.coerce.date()
+    });
+
+    //React-hook-form
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: zodResolver(schema),
+        defaultValues: {
+            username: username,
+            password: "New password",
+            email: email,
+            birthday: birthday.slice(0, 10)
+        }
+    });
+
+
     return (
         <Col className="d-flex justify-content-center">
             <Card className="updateCard">
                 <Card.Body className="updateBox">
                     <Card.Title>Update your information</Card.Title>
-                    <Form onSubmit={handleUpdate}>
-                        <Form.Group className="formBox">
-
+                    <Form onSubmit={handleSubmit(handleUpdate)}>
+                        <Form.Group controlId="updateFormUsername" className="formBox">
                             <Form.Control
                                 type="text"
-                                autoComplete='username'
-                                defaultValue={username}
-                                onChange={e => setUsername(e.target.value.trim())}
+                                placeholder=''
+                                {...register("username")}
+                                autoComplete="username"
 
                             />
+                            {errors.username && (
+                                <Form.Text className="text-danger">
+                                    {errors.username.message}
+                                </Form.Text>
+                            )}
                             <Form.Label>Username</Form.Label>
                         </Form.Group>
-                        <Form.Group className="formBox">
-
+                        <Form.Group controlId="updateFormPassword" className="formBox">
                             <Form.Control
                                 type="password"
-                                autoComplete='current-password'
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
-                                }}
-                                required
+                                {...register("password")}
+                                autoComplete="password"
+                                placeholder=''
                             />
+                            {errors.password && (
+                                <Form.Text className="text-danger">
+                                    {errors.password.message}
+                                </Form.Text>
+                            )}
                             <Form.Label>New password</Form.Label>
                         </Form.Group>
                         <Form.Group className="formBox">
-
                             <Form.Control
-                                type="email"
-                                defaultValue={email}
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
-                                }}
-
+                                type="text"
+                                {...register("email")}
+                                autoComplete="email"
+                                placeholder=''
                             />
+                            {errors.email && (
+                                <Form.Text className="text-danger">
+                                    {errors.email.message}
+                                </Form.Text>
+                            )}
                             <Form.Label>Email</Form.Label>
                         </Form.Group>
                         <Form.Group className="formBox">
-
                             <Form.Control
                                 type="date"
-                                defaultValue={birthday.slice(0, 10)}
-                                onChange={(e) => {
-                                    setBirthday(e.target.value);
-                                }}
+                                {...register("birthday")}
                             />
-                            <Form.Label>Birthday</Form.Label>
+                            {errors.birthday && (
+                                <Form.Text className="text-danger">
+                                    {errors.birthday.message}
+                                </Form.Text>
+                            )}
+                            <Form.Label class="birthdayLabel">Birthday</Form.Label>
                         </Form.Group>
                         <Button
                             type="submit"
-                            onClick={handleUpdate}
                             id="updateBtn"
                         >
                             <span></span>
                             <span></span>
                             <span></span>
                             <span></span>
-                            update profile
+                            Update profile
                         </Button>
                         <Form.Group>
                             <Link className="removeLink">

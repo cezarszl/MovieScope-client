@@ -101,16 +101,9 @@ const SignupView = () => {
                 <Form.Group controlId="signUpFormEmail" className="formBox">
                     <Form.Control
                         type="text"
-                        {...register("email", {
-                            required: "WYmgane pole"
-                        })}
+                        {...register("email")}
                         placeholder=""
                     />
-                    {errors.email && (
-                        <Form.Text className="text-danger">
-                            {errors.email.message}
-                        </Form.Text>
-                    )}
                     {errors.email && (
                         <Form.Text className="text-danger">
                             {errors.email.message}
@@ -121,9 +114,7 @@ const SignupView = () => {
                 <Form.Group controlId="signUpFormBirthday" className="formBox">
                     <Form.Control
                         type="date"
-                        {...register("birthday", {
-                            required: true
-                        })}
+                        {...register("birthday")}
                     />
                     {errors.birthday && (
                         <Form.Text className="text-danger">

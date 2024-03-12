@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { FavouriteMovies } from "./favourite-movies";
 import { UpdateUser } from "./update-user";
-
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast, Bounce } from "react-toastify";
 
 export const ProfileView = ({ user, token, movies, setUser }) => {
 
@@ -15,14 +16,38 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
         user.FavouriteMovies.includes(m.id)
     );
 
-    const handleUpdate = (event) => {
-        event.preventDefault();
+    //ReactToastify
+    const updateSuccessfulToast = () => toast.success('Updated successfully!', {
+        position: "bottom-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+    });
+
+    const deleteSuccessfulToast = () => toast.info('Your account has been deleted.', {
+        position: "bottom-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+    });
+
+    const handleUpdate = (formData) => {
 
         const data = {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday
+            Username: formData.username,
+            Password: formData.password,
+            Email: formData.email,
+            Birthday: formData.birthday
         };
 
         fetch(
@@ -38,14 +63,17 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
         )
             .then(async (response) => {
                 if (response.ok) {
-                    alert("Update successful");
+                    updateSuccessfulToast();
                     const data = await response.json();
                     localStorage.setItem("user", JSON.stringify(data));
-                    window.location.reload();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000)
                 } else {
+                    alert("Could not update account");
                     const errorText = await response.text();
                     console.log("Error response body:", errorText);
-                    alert("Update failed");
+
                 }
             })
             .catch((err) => console.log("error", err));
@@ -62,11 +90,12 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
             }
         ).then((response) => {
             if (response.ok) {
-                setUser(null);
-
-                localStorage.clear();
-                alert("Your account has been deleted");
-                window.location.replace("/login");
+                deleteSuccessfulToast();
+                setTimeout(() => {
+                    setUser(null);
+                    localStorage.clear();
+                    window.location.replace("/login");
+                }, 2000)
             } else {
                 alert("Could not delete account");
             }
@@ -75,8 +104,8 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
 
     return (
         <Container className="up-container">
+            <ToastContainer />
             <Row>
-                {/* <UserInfo username={user.Username} email={user.Email} /> */}
                 <UpdateUser
                     handleUpdate={handleUpdate}
                     username={user.Username}

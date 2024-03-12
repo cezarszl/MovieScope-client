@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import { setUser } from "../../redux/reducers/user";
 import { useDispatch } from "react-redux";
@@ -20,7 +19,7 @@ const LoginView = ({ }) => {
     })
 
     //React-hook-form
-    const { register, handleSubmit, setError, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
+    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
 
     //ReactToastify
     const loginSuccesfulToast = () => toast.success('Logged in successfully!', {
@@ -47,8 +46,6 @@ const LoginView = ({ }) => {
     });
 
     const onSubmit = (formData) => {
-
-
         const data = {
             Username: formData.username,
             Password: formData.password
@@ -97,7 +94,6 @@ const LoginView = ({ }) => {
                     )}
                     <Form.Label>Username</Form.Label>
                 </Form.Group>
-
                 <Form.Group controlId="loginFormPassword" className="formBox">
                     <Form.Control
                         type="password"
