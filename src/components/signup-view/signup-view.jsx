@@ -4,7 +4,7 @@ import z from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast, Bounce } from "react-toastify";
-
+import axios from "axios";
 import "./signup-view.scss";
 const SignupView = () => {
 
@@ -41,24 +41,25 @@ const SignupView = () => {
             Email: formData.email,
             Birthday: formData.birthday
         }
-
-        fetch(`${process.env.API_URL}users`,
-            {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then((response) => {
-                if (response.ok) {
-                    registrationToast();
-                    setTimeout(() => {
-                        window.location.replace("/login");
-                    }, 2000);
-                } else {
-                    setError("username", { message: 'This username is already taken.' })
-                }
+        axios.post(`${process.env.API_URL}users`, data, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then((response) => {
+                console.log(response);
+                registrationToast();
+                setTimeout(() => {
+                    window.location.replace("/login");
+                }, 2000);
             })
+            .catch((error) => {
+                if (error.response && error.response.status === 400) { // 409 - Conflict
+                    setError("username", { message: 'This username is already taken.' });
+                } else {
+                    console.error("Error:", error);
+                }
+            });
     };
 
     return (

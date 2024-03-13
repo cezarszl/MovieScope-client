@@ -9,8 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 
 export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount }) => {
-    const api = process.env.API_URL;
-    console.log(api);
+
     //Zod form schema
     const schema = z.object({
         username: z.string().trim().min(1, { message: "This field is required" }),

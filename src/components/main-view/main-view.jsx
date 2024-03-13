@@ -12,6 +12,7 @@ import { ScrollToAnchor } from "./scroll-to-anchor";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
 import { setUser } from "../../redux/reducers/user";
+import axios from "axios";
 import "./main-view.scss"
 
 
@@ -39,10 +40,9 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    fetch(`${process.env.API_URL}movies`, { headers: { Authorization: `Bearer ${token}` } })
-      .then((response) => response.json())
-      .then((data) => {
-        const movieFromApi = data.map((key) => {
+    axios.get(`${process.env.API_URL}movies`, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        const movieFromApi = response.data.map((key) => {
           return {
             id: key._id,
             title: key.Title,
@@ -56,7 +56,9 @@ export const MainView = () => {
         });
         dispatch(setMovies(movieFromApi));
       })
-
+      .catch((error) => {
+        console.error('Error fetching movies:', error);
+      });
   }, [token]);
 
 

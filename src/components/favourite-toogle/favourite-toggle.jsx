@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { setUser } from "../../redux/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 import thumbUp from "../../assets/thumbup.svg"
 import thumbDown from "../../assets/thumbdown.svg"
+
+
 export const FavouriteToggle = ({ movie }) => {
 
     const { user, token } = useSelector((state) => state.user);
@@ -19,22 +22,26 @@ export const FavouriteToggle = ({ movie }) => {
     }, [user]);
 
     const addFavoriteMovie = () => {
-        fetch(
-            `https://cezarszlmyflix-0212aa467a8d.herokuapp.com/users/${user.Username}/movies/${movie.id}`,
-            { method: "POST", headers: { Authorization: `Bearer ${token}` } }
+        axios.post(
+            `${process.env.API_URL}users/${user.Username}/movies/${movie.id}`,
+            null,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
         )
             .then((response) => {
-                console.log(response);
-                if (response.ok) {
-                    return response.json();
+                if (response.status === 200) {
+                    return response.data;
                 } else {
                     console.log("Failed to add");
                 }
             })
-            .then((responseUser) => {
-                if (responseUser) {
-                    localStorage.setItem("user", JSON.stringify(responseUser));
-                    dispatch(setUser({ user: responseUser, token: token }));
+            .then((user) => {
+                if (user) {
+                    localStorage.setItem("user", JSON.stringify(user));
+                    dispatch(setUser({ user: user, token: token }));
                     setIsFavorite(true);
                     console.log("Succesfully added");
                 }
@@ -45,16 +52,19 @@ export const FavouriteToggle = ({ movie }) => {
     };
 
     const removeFavoriteMovie = () => {
-        fetch(
-            `https://cezarszlmyflix-0212aa467a8d.herokuapp.com/users/${user.Username}/movies/${movie.id}`,
-            { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
+        axios.delete(
+            `${process.env.API_URL}users/${user.Username}/movies/${movie.id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
         )
             .then((response) => {
-                if (response.ok) {
-                    return response.json();
-
+                if (response.status === 200) {
+                    return response.data;
                 } else {
-                    console.log("failed to remove fav movie");
+                    console.log("Failed to remove favorite movie");
                     return undefined;
                 }
             })
@@ -63,6 +73,7 @@ export const FavouriteToggle = ({ movie }) => {
                     localStorage.setItem("user", JSON.stringify(user));
                     dispatch(setUser({ user: user, token: token }));
                     setIsFavorite(false);
+                    console.log("Succesfully removed");
                 }
             })
             .catch((err) => {

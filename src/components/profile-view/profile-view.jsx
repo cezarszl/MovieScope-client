@@ -4,6 +4,7 @@ import { FavouriteMovies } from "./favourite-movies";
 import { UpdateUser } from "./update-user";
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast, Bounce } from "react-toastify";
+import axios from "axios";
 
 export const ProfileView = ({ user, token, movies, setUser }) => {
 
@@ -50,25 +51,20 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
             Birthday: formData.birthday
         };
 
-        fetch(
-            `${process.env.API_URL}users/${user.Username}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
+        axios.put(`${process.env.API_URL}users/${user.Username}`, data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
             }
-        )
+        })
             .then(async (response) => {
-                if (response.ok) {
+                if (response.status === 200) {
                     updateSuccessfulToast();
-                    const data = await response.json();
-                    localStorage.setItem("user", JSON.stringify(data));
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000)
+                    const updatedUserData = await response.data;
+                    localStorage.setItem("user", JSON.stringify(updatedUserData));
+                    // setTimeout(() => {
+                    //     window.location.reload();
+                    // }, 2000)
                 } else {
                     alert("Could not update account");
                     const errorText = await response.text();
@@ -80,26 +76,24 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
     };
 
     const deleteAccount = () => {
-        fetch(
-            `${process.env.API_URL}users/${user.Username}`,
-            {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+        axios.delete(`${process.env.API_URL}users/${user.Username}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
             }
-        ).then((response) => {
-            if (response.ok) {
-                deleteSuccessfulToast();
-                setTimeout(() => {
-                    setUser(null);
-                    localStorage.clear();
-                    window.location.replace("/login");
-                }, 2000)
-            } else {
-                alert("Could not delete account");
-            }
-        });
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    deleteSuccessfulToast();
+                    setTimeout(() => {
+                        setUser(null);
+                        localStorage.clear();
+                        window.location.replace("/login");
+                    }, 2000);
+                } else {
+                    alert("Could not delete account");
+                }
+            })
+            .catch((error) => console.error("Error:", error));
     };
 
     return (

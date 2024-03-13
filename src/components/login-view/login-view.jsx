@@ -7,6 +7,7 @@ import z from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast, Bounce } from "react-toastify";
+import axios from "axios";
 import "./login-view.scss"
 
 const LoginView = ({ }) => {
@@ -46,19 +47,17 @@ const LoginView = ({ }) => {
     });
 
     const onSubmit = (formData) => {
-        const data = {
+        const requestData = {
             Username: formData.username,
             Password: formData.password
         };
-        fetch(`${process.env.API_URL}login`, {
-            method: "POST",
+        axios.post(`${process.env.API_URL}login`, requestData, {
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }).then((response) => response.json())
+            }
+        })
+            .then((response) => response.data)
             .then((data) => {
-                console.log("Login response: ", data);
                 if (data.user) {
                     loginSuccesfulToast();
                     setTimeout(() => {
