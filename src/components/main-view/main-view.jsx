@@ -39,7 +39,7 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/movies", { headers: { Authorization: `Bearer ${token}` } })
+    fetch(`${process.env.API_URL}movies`, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => response.json())
       .then((data) => {
         const movieFromApi = data.map((key) => {

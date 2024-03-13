@@ -51,7 +51,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
         };
 
         fetch(
-            `https://cezarszlmyflix-0212aa467a8d.herokuapp.com/users/${user.Username}`,
+            `${process.env.API_URL}users/${user.Username}`,
             {
                 method: "PUT",
                 headers: {
@@ -81,7 +81,7 @@ export const ProfileView = ({ user, token, movies, setUser }) => {
 
     const deleteAccount = () => {
         fetch(
-            `https://cezarszlmyflix-0212aa467a8d.herokuapp.com/users/${user.Username}`,
+            `${process.env.API_URL}users/${user.Username}`,
             {
                 method: "DELETE",
                 headers: {

@@ -27215,7 +27215,7 @@ const MainView = ()=>{
     ]);
     (0, _react.useEffect)(()=>{
         if (!token) return;
-        fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/movies", {
+        fetch(`${"https://cezarszlmyflix-0212aa467a8d.herokuapp.com/"}movies`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -46649,7 +46649,7 @@ const ProfileView = ({ user, token, movies, setUser })=>{
             Email: formData.email,
             Birthday: formData.birthday
         };
-        fetch(`https://cezarszlmyflix-0212aa467a8d.herokuapp.com/users/${user.Username}`, {
+        fetch(`${"https://cezarszlmyflix-0212aa467a8d.herokuapp.com/"}users/${user.Username}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -46672,7 +46672,7 @@ const ProfileView = ({ user, token, movies, setUser })=>{
         }).catch((err)=>console.log("error", err));
     };
     const deleteAccount = ()=>{
-        fetch(`https://cezarszlmyflix-0212aa467a8d.herokuapp.com/users/${user.Username}`, {
+        fetch(`${"https://cezarszlmyflix-0212aa467a8d.herokuapp.com/"}users/${user.Username}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -46841,8 +46841,10 @@ var _zod = require("zod");
 var _zodDefault = parcelHelpers.interopDefault(_zod);
 var _zod1 = require("@hookform/resolvers/zod");
 var _s = $RefreshSig$();
-const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, setUsername, setPassword, setEmail, setBirthday })=>{
+const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount })=>{
     _s();
+    const api = "https://cezarszlmyflix-0212aa467a8d.herokuapp.com/";
+    console.log(api);
     //Zod form schema
     const schema = (0, _zodDefault.default).object({
         username: (0, _zodDefault.default).string().trim().min(1, {
@@ -46859,7 +46861,7 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
         resolver: (0, _zod1.zodResolver)(schema),
         defaultValues: {
             username: username,
-            password: "New password",
+            password: "",
             email: email,
             birthday: birthday.slice(0, 10)
         }
@@ -46875,7 +46877,7 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                         children: "Update your information"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 36,
+                        lineNumber: 38,
                         columnNumber: 21
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -46892,7 +46894,7 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         autoComplete: "username"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 39,
+                                        lineNumber: 41,
                                         columnNumber: 29
                                     }, undefined),
                                     errors.username && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -46900,20 +46902,20 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         children: errors.username.message
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 47,
+                                        lineNumber: 49,
                                         columnNumber: 33
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                         children: "Username"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 51,
+                                        lineNumber: 53,
                                         columnNumber: 29
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 38,
+                                lineNumber: 40,
                                 columnNumber: 25
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -46927,7 +46929,7 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         placeholder: ""
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 54,
+                                        lineNumber: 56,
                                         columnNumber: 29
                                     }, undefined),
                                     errors.password && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -46935,20 +46937,20 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         children: errors.password.message
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 61,
+                                        lineNumber: 63,
                                         columnNumber: 33
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                         children: "New password"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 65,
+                                        lineNumber: 67,
                                         columnNumber: 29
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 53,
+                                lineNumber: 55,
                                 columnNumber: 25
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -46961,7 +46963,7 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         placeholder: ""
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 68,
+                                        lineNumber: 70,
                                         columnNumber: 29
                                     }, undefined),
                                     errors.email && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -46969,20 +46971,20 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         children: errors.email.message
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 75,
+                                        lineNumber: 77,
                                         columnNumber: 33
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                         children: "Email"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 79,
+                                        lineNumber: 81,
                                         columnNumber: 29
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 67,
+                                lineNumber: 69,
                                 columnNumber: 25
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -46993,7 +46995,7 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         ...register("birthday")
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 82,
+                                        lineNumber: 84,
                                         columnNumber: 29
                                     }, undefined),
                                     errors.birthday && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -47001,37 +47003,27 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         children: errors.birthday.message
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 87,
+                                        lineNumber: 89,
                                         columnNumber: 33
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                        class: "birthdayLabel",
+                                        className: "birthdayLabel",
                                         children: "Birthday"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 91,
+                                        lineNumber: 93,
                                         columnNumber: 29
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 81,
+                                lineNumber: 83,
                                 columnNumber: 25
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                 type: "submit",
                                 id: "updateBtn",
                                 children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {}, void 0, false, {
-                                        fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 97,
-                                        columnNumber: 29
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {}, void 0, false, {
-                                        fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 98,
-                                        columnNumber: 29
-                                    }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {}, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
                                         lineNumber: 99,
@@ -47042,11 +47034,21 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         lineNumber: 100,
                                         columnNumber: 29
                                     }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {}, void 0, false, {
+                                        fileName: "src/components/profile-view/update-user.jsx",
+                                        lineNumber: 101,
+                                        columnNumber: 29
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {}, void 0, false, {
+                                        fileName: "src/components/profile-view/update-user.jsx",
+                                        lineNumber: 102,
+                                        columnNumber: 29
+                                    }, undefined),
                                     "Update profile"
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 93,
+                                lineNumber: 95,
                                 columnNumber: 25
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47060,39 +47062,39 @@ const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, se
                                         children: "Remove account permanently"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 105,
+                                        lineNumber: 107,
                                         columnNumber: 33
                                     }, undefined)
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 104,
+                                    lineNumber: 106,
                                     columnNumber: 29
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 103,
+                                lineNumber: 105,
                                 columnNumber: 25
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 37,
+                        lineNumber: 39,
                         columnNumber: 21
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 35,
+                lineNumber: 37,
                 columnNumber: 17
             }, undefined)
         }, void 0, false, {
             fileName: "src/components/profile-view/update-user.jsx",
-            lineNumber: 34,
+            lineNumber: 36,
             columnNumber: 13
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/profile-view/update-user.jsx",
-        lineNumber: 33,
+        lineNumber: 35,
         columnNumber: 9
     }, undefined);
 };
@@ -54443,7 +54445,7 @@ const LoginView = ({})=>{
             Username: formData.username,
             Password: formData.password
         };
-        fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/login", {
+        fetch(`${"https://cezarszlmyflix-0212aa467a8d.herokuapp.com/"}login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -54671,7 +54673,7 @@ const SignupView = ()=>{
             Email: formData.email,
             Birthday: formData.birthday
         };
-        fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/users", {
+        fetch(`${"https://cezarszlmyflix-0212aa467a8d.herokuapp.com/"}users`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -54963,6 +54965,6 @@ const store = (0, _toolkit.configureStore)({
     }
 });
 
-},{"@reduxjs/toolkit":"fuua8","./reducers/movies":"l0qwl","./reducers/user":"e6tdF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lJZlQ":[function() {},{}]},["d8m58","1xC6H","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"@reduxjs/toolkit":"fuua8","./reducers/movies":"l0qwl","./reducers/user":"e6tdF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lJZlQ":[function() {},{}]},["d8m58","1xC6H","d8Dch"], "d8Dch", "parcelRequireb824")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

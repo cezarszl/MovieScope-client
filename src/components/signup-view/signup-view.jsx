@@ -42,7 +42,7 @@ const SignupView = () => {
             Birthday: formData.birthday
         }
 
-        fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/users",
+        fetch(`${process.env.API_URL}users`,
             {
                 method: "POST",
                 body: JSON.stringify(data),

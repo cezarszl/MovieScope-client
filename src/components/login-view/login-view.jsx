@@ -50,7 +50,7 @@ const LoginView = ({ }) => {
             Username: formData.username,
             Password: formData.password
         };
-        fetch("https://cezarszlmyflix-0212aa467a8d.herokuapp.com/login", {
+        fetch(`${process.env.API_URL}login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

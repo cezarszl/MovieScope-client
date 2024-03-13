@@ -7,8 +7,10 @@ import z from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
-export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount, setUsername, setPassword, setEmail, setBirthday }) => {
 
+export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAccount }) => {
+    const api = process.env.API_URL;
+    console.log(api);
     //Zod form schema
     const schema = z.object({
         username: z.string().trim().min(1, { message: "This field is required" }),
@@ -22,7 +24,7 @@ export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAcco
         resolver: zodResolver(schema),
         defaultValues: {
             username: username,
-            password: "New password",
+            password: "",
             email: email,
             birthday: birthday.slice(0, 10)
         }
@@ -88,7 +90,7 @@ export const UpdateUser = ({ handleUpdate, username, birthday, email, deleteAcco
                                     {errors.birthday.message}
                                 </Form.Text>
                             )}
-                            <Form.Label class="birthdayLabel">Birthday</Form.Label>
+                            <Form.Label className="birthdayLabel">Birthday</Form.Label>
                         </Form.Group>
                         <Button
                             type="submit"
