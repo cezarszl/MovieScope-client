@@ -54,7 +54,7 @@ const SignupView = () => {
                 }, 2000);
             })
             .catch((error) => {
-                if (error.response && error.response.status === 400) { // 409 - Conflict
+                if (error.response && error.response.status === 400) {
                     setError("username", { message: 'This username is already taken.' });
                 } else {
                     console.error("Error:", error);
