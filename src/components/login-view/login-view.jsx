@@ -65,12 +65,10 @@ const LoginView = ({ }) => {
                         localStorage.setItem("token", data.token);
                         dispatch(setUser({ user: data.user, token: data.token }));
                     }, 2000);
-                } else {
-                    loginFailedToast();
                 }
             })
             .catch((e) => {
-                alert("Something went wrong");
+                loginFailedToast();
             });
 
     }
