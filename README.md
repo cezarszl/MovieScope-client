@@ -18,6 +18,11 @@ MovieScope is an app built using ReactJS, leveraging previously designed server-
 
 ![MyFlix App Screenshot](https://drive.google.com/uc?export=view&id=1LQzUyfgyDJxw6wGE-qEyDVPAV6H_Jx8X)
 
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/cezarszl/MovieScope-client.git
+
 ## Live demo
 
 https://cezarszl.netlify.app/
