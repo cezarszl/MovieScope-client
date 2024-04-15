@@ -22,6 +22,12 @@ MovieScope is an app built using ReactJS, leveraging previously designed server-
 1. Clone the repository:
    ```bash
    git clone https://github.com/cezarszl/MovieScope-client.git
+2. Install dependencies:
+   ```bash
+   npm install
+3. Run the project
+   ```bash
+   npm start
 
 ## Live demo
 
